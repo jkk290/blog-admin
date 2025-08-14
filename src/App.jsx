@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import PostPage from './pages/PostPage'
@@ -11,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<HomePage />}/>
-        <Route path='/posts/:postTitle' element={<PostPage />}/>
+        <Route path='/posts/:postId' element={<PostPage />}/>
         <Route path='*' element={<NotFound />}/>
       </Routes>
     </BrowserRouter>
