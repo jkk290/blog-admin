@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import Comments from '../components/Comments';
 
 function PostPage() {
     const { postId } = useParams();
@@ -11,8 +13,7 @@ function PostPage() {
     useEffect(() => {
         const fetchPost = async () => {                
             try {
-                const response = await fetch(`http://localhost:3000/api/posts/${postId}`);
-                console.log('Got response', response)
+                const response = await fetch(`http://localhost:3000/api/posts/${postId}`)
                 
                 if (response.status === 404) {
                     setError('Post not found')
@@ -23,13 +24,13 @@ function PostPage() {
                     throw new Error('Failed to fetch post')
                 }
 
-                const data = await response.json();
-                setPost(data);
+                const data = await response.json()
+                setPost(data)
             }
             catch (err) {
                 setError(err.message)
             } finally {
-                setIsLoading(false);
+                setIsLoading(false)
             }
         }  
 
@@ -37,22 +38,32 @@ function PostPage() {
     }, [postId])
 
     if (isLoading) {
-        return (<h1>Loading...</h1>)
+        return (
+            <div>
+                <Link to={'/'}>Back</Link>
+                <h1>Loading...</h1>
+            </div>            
+        )
     }
 
     if (error) {
-        console.log(error)
-        return (<h1>{error}</h1>)
+        return (
+            <div>
+                <Link to={'/'}>Back</Link>
+                <h1>{error}</h1>
+            </div>
+        )
     }
 
     return (
         <>
             <div>
+                <Link to={'/'}>Back</Link>
                 <h1>{post.title}</h1>
-                <p>{post.text}</p>
+                <p>{post.text}</p>             
             </div>
             <div>
-                <h2>Post comments</h2>
+                <Comments postId={postId}/>
             </div>
         </>
         
