@@ -41,6 +41,7 @@ function Comments({ postId }) {
     return (
         <div>
             <h2>Comments</h2>
+            <button>Add comment</button>
             <ul>
                 {comments.map(comment => {
                     return (
