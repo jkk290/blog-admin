@@ -40,7 +40,6 @@ function PostPage() {
     if (isLoading) {
         return (
             <div>
-                <Link to={'/'}>Back</Link>
                 <h1>Loading...</h1>
             </div>            
         )
@@ -49,7 +48,6 @@ function PostPage() {
     if (error) {
         return (
             <div>
-                <Link to={'/'}>Back</Link>
                 <h1>{error}</h1>
             </div>
         )
@@ -58,7 +56,6 @@ function PostPage() {
     return (
         <>
             <div>
-                <Link to={'/'}>Back</Link>
                 <h1>{post.title}</h1>
                 <p>{post.text}</p>             
             </div>

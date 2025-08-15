@@ -7,10 +7,12 @@ function AuthProvider({ children }) {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null) 
     const [userId, setUserId] = useState(null)
+    const [username, setUsername] = useState(null)
 
-    const setAuth = (token, userId) => {
+    const setAuth = (token, userId, username) => {
         setIsAuthenticated(true)
         setUserId(userId)
+        setUsername(username)
         localStorage.setItem('authToken', token)
         setIsLoading(false)
 
@@ -22,6 +24,7 @@ function AuthProvider({ children }) {
     const logout = () => {
         setIsAuthenticated(false)
         setUserId(null)
+        setUsername(null)
         localStorage.removeItem('authToken')
 
         if (error) {
@@ -34,6 +37,7 @@ function AuthProvider({ children }) {
         isLoading,
         error,
         userId,
+        username,
         setAuth,
         logout
     }

@@ -13,7 +13,6 @@ function HomePage() {
                 const response = await fetch('http://localhost:3000/api/posts');
 
                 if (!response.ok) {
-                    console.log(response);
                     throw new Error('Failed to fetch posts');
                 }
 
@@ -29,7 +28,6 @@ function HomePage() {
         fetchPosts();
     }, []);
 
-    console.log(posts);
     return (
         <div>
             <h1>Homepage - All Posts</h1>
