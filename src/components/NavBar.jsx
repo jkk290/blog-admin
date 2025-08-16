@@ -19,7 +19,7 @@ function NavBar() {
         <div className='navBar'>
             <ul>
                 <li><Link to={'/'}>Home</Link></li>
-                {!isAuthenticated ? <li><button onClick={toggleLoginForm}>Login</button></li> : <li>{username} <button onClick={logout}>Logout</button></li> }
+                {!isAuthenticated ? <li><Link to={'/signup'}>Sign up</Link><button onClick={toggleLoginForm}>Login</button></li> : <li>{username} <button onClick={logout}>Logout</button></li> }
                 {loginFormOpen ? <LoginForm onClose={closeLoginForm}/> : null}
                 
             </ul>
