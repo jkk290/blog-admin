@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import Comments from '../components/Comments';
+import Comments from '../components/Comments'
 
 function PostPage() {
-    const { postId } = useParams();
+    const { postId } = useParams()
 
     const [post, setPost] = useState([])
     const [isLoading, setIsLoading] = useState(true)

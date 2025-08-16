@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import CommentForm from "./CommentForm"
 
 function Comments({ postId }) {
     const [comments, setComments] = useState([])
@@ -30,6 +31,11 @@ function Comments({ postId }) {
         fetchComments()
     }, [postId])
 
+    const handleNewComment = (newComment) => {
+        setComments([...comments, newComment])
+        console.log('Updated comments: ', comments)
+    }
+
     if (isLoading) {
         return <h1>Loading comments...</h1>
     }
@@ -42,6 +48,7 @@ function Comments({ postId }) {
         <div>
             <h2>Comments</h2>
             <button>Add comment</button>
+            <CommentForm onChange={handleNewComment}/>
             <ul>
                 {comments.map(comment => {
                     return (
