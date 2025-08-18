@@ -1,3 +1,3 @@
-# Blog-Public
+# Blog-Admin
 
-Public frontend for blog project# blog-public
+Admin frontend for blog project
