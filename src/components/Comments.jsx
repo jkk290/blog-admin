@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import CommentForm from "./CommentForm"
+import { useAuth } from "../contexts/AuthContext.jsx"
 
 function Comments({ postId }) {
     const [comments, setComments] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
+    const { isAuthenticated } = useAuth()
     
     useEffect(() => {
         const fetchComments = async () => {
@@ -47,8 +49,6 @@ function Comments({ postId }) {
     return (
         <div>
             <h2>Comments</h2>
-            <button>Add comment</button>
-            <CommentForm onChange={handleNewComment}/>
             <ul>
                 {comments.map(comment => {
                     return (
@@ -59,6 +59,7 @@ function Comments({ postId }) {
                     )
                 })}
             </ul>
+            {isAuthenticated ? <CommentForm onChange={handleNewComment} /> : null}
         </div>
     )
 }
