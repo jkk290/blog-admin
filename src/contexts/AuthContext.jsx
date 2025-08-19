@@ -36,6 +36,27 @@ function AuthProvider({ children }) {
             setError(null)
         }
     },[error])
+
+    const verifyAdmin = async (token, username) => {
+        const response = await fetch('http://localhost:3000/api/auth/checkAdmin', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'Application/JSON',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                username: username
+            })
+        })
+
+        if (!response.ok) {
+            throw new Error('Unable to verify admin status')
+        }
+
+        const data = await response.json()
+        console.log('Is user admin? ', data)
+        return data.admin
+    }
    
     useEffect( () => {
         const checkToken = async () => {            
@@ -72,7 +93,8 @@ function AuthProvider({ children }) {
         username,
         authToken,
         setAuth,
-        logout
+        logout,
+        verifyAdmin
     }
 
     return (

@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import HomePage from './pages/HomePage'
 import PostPage from './pages/PostPage'
 import NotFound from './pages/NotFound'
+import LoginPage from './pages/LoginPage'
 import Signup from './pages/Signup'
 import NavBar from './components/NavBar'
 
@@ -14,9 +15,10 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <Routes>
-            <Route path='/' element={<HomePage />}/>
-            <Route path='/posts/:postId' element={<PostPage />}/>
-            <Route path='/signup' element={<Signup />}/>
+            <Route path='/admin/' element={<HomePage />}/>
+            <Route path='/admin/posts/:postId' element={<PostPage />}/>
+            <Route path='/' element={<LoginPage />}/>
+            {/* <Route path='/signup' element={<Signup />}/> */}
             <Route path='*' element={<NotFound />}/>
           </Routes>
       </BrowserRouter>

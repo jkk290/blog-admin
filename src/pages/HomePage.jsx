@@ -1,32 +1,39 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 function HomePage() {
-    const [posts, setPosts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [posts, setPosts] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(null)
+    const navigate = useNavigate()
+    const { isAuthenticated } = useAuth()
+
+    if (!isAuthenticated) {
+        navigate('/')
+    }
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                setIsLoading(true);
-                const response = await fetch('http://localhost:3000/api/posts');
+                setIsLoading(true)
+                const response = await fetch('http://localhost:3000/api/posts')
 
                 if (!response.ok) {
-                    throw new Error('Failed to fetch posts');
+                    throw new Error('Failed to fetch posts')
                 }
 
-                const data = await response.json();
-                setPosts(data);
+                const data = await response.json()
+                setPosts(data)
             } catch (err) {
-                setError(err.message);
+                setError(err.message)
             } finally {
-                setIsLoading(false);
+                setIsLoading(false)
             }
-        };
+        }
 
-        fetchPosts();
-    }, []);
+        fetchPosts()
+    }, [])
 
     return (
         <div>
@@ -49,4 +56,4 @@ function HomePage() {
     )
 }
 
-export default HomePage;
+export default HomePage
