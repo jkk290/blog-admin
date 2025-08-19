@@ -32,21 +32,18 @@ function LoginPage() {
                 setAuth(data.token, decoded.sub, decoded.username)
 
                 const isAdmin = await verifyAdmin(data.token, decoded.username)
-                console.log(isAdmin)
                 if (!isAdmin) {
                     logout()
                     setError('Unauthorized, not an admin')
                 } else {
                     navigate('/admin')
-                }                
-                
+                }              
             } else {
                 setError(`Login failed: ${data.message}`)
             }
         } catch (error) {
             setError(`Unable to login: ${error}`)
         }
-
     }
 
     return (

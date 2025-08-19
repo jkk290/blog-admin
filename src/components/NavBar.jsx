@@ -1,27 +1,21 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import LoginForm from './LoginForm'
+import { useNavigate } from 'react-router-dom'
 
 function NavBar() {
-    const [loginFormOpen, setLoginFormOpen] = useState(false)
-    const { isAuthenticated, username, logout } = useAuth()
-    
-    const toggleLoginForm = () => {
-        setLoginFormOpen(!loginFormOpen)
-    }
+    const { username, logout } = useAuth()
+    const navigate = useNavigate()
 
-    const closeLoginForm = () => {
-        setLoginFormOpen(false)
+    const handleLogout = () => {
+        logout()
+        navigate('/')
     }
 
     return (
         <div className='navBar'>
             <ul>
-                <li><Link to={'/'}>Home</Link></li>
-                {!isAuthenticated ? <li><Link to={'/signup'}>Sign up</Link><button onClick={toggleLoginForm}>Login</button></li> : <li>{username} <button onClick={logout}>Logout</button></li> }
-                {loginFormOpen ? <LoginForm onClose={closeLoginForm}/> : null}
-                
+                <li><Link to={'/admin'}>Home</Link></li>
+                <li>{username} <button onClick={handleLogout}>Logout</button></li>                
             </ul>
         </div>
     )

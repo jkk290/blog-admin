@@ -6,15 +6,12 @@ import PostPage from './pages/PostPage'
 import NotFound from './pages/NotFound'
 import LoginPage from './pages/LoginPage'
 import ProtectedRoute from './components/ProtectedRoute'
-import Signup from './pages/Signup'
-import NavBar from './components/NavBar'
 
 function App() {  
 
   return (
     <AuthProvider>
         <BrowserRouter>
-          {/* <NavBar /> */}
           <Routes>
             <Route path='/admin/' element={
               <ProtectedRoute element={<HomePage />}/>
@@ -23,7 +20,6 @@ function App() {
               <ProtectedRoute element={<PostPage />} />
               }/>
             <Route path='/' element={<LoginPage />}/>
-            {/* <Route path='/signup' element={<Signup />}/> */}
             <Route path='*' element={<NotFound />}/>
           </Routes>
       </BrowserRouter>
