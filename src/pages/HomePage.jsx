@@ -1,17 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import { Link } from 'react-router-dom'
 
 function HomePage() {
     const [posts, setPosts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
-    const navigate = useNavigate()
-    const { isAuthenticated } = useAuth()
-
-    if (!isAuthenticated) {
-        navigate('/')
-    }
 
     useEffect(() => {
         const fetchPosts = async () => {
