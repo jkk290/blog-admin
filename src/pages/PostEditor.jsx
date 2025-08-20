@@ -88,7 +88,7 @@ function PostEditor() {
     return (
         <div>
             <h1>Post Editor</h1>
-            <form method='post' onSubmit={handleSubmit}>
+            <form method='put' onSubmit={handleSubmit}>
                 <label htmlFor="titleField">Title: </label>
                 <input 
                 type="text" 

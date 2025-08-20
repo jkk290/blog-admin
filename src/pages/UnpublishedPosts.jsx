@@ -29,7 +29,30 @@ function UnpublishedPosts() {
             }
         }
         fetchPosts()
-    }, [authToken])
+    }, [posts, authToken])
+
+    const handleSubmit = async (postId) => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/posts/${postId}/publish`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                }
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                alert('Post published')
+                return
+            } else {
+                console.error('Failed to publish post: ', data.message)
+            }
+        } catch (error) {
+            console.error('Failed to publish post ',error)
+        }
+    }
 
     return (
         <div>
@@ -43,6 +66,7 @@ function UnpublishedPosts() {
                             <Link to={`${post.id}`}>
                                 <h2>{post.title}</h2>
                             </Link>
+                            <button onClick={() => handleSubmit(post.id)}>Publish</button>
                         </li>
                     )                    
                 })}
