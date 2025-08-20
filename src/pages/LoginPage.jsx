@@ -1,14 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from "../contexts/AuthContext";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-    const { setAuth, logout, verifyAdmin } = useAuth()
+    const { isAuthenticated, isLoading, setAuth, logout, verifyAdmin } = useAuth()
     const [usernameField, setUsernameField] = useState('')
     const [passwordField, setPasswordField] = useState('')
     const [error, setError] = useState(null)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/admin')
+        }
+    }, [isAuthenticated, navigate])
+
+    if (isLoading) {
+        return <h1>Loading...</h1>
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -39,7 +49,7 @@ function LoginPage() {
                     navigate('/admin')
                 }              
             } else {
-                setError(`Login failed: ${data.message}`)
+                setError(`Login failed`)
             }
         } catch (error) {
             setError(`Unable to login: ${error}`)

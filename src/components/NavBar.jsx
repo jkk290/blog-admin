@@ -15,6 +15,7 @@ function NavBar() {
         <div className='navBar'>
             <ul>
                 <li><Link to={'/admin'}>Home</Link></li>
+                <li><Link to={'/admin/unpublished'}>Unpublished Posts</Link></li>
                 <li>{username} <button onClick={handleLogout}>Logout</button></li>                
             </ul>
         </div>

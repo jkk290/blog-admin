@@ -5,15 +5,21 @@ import NavBar from './NavBar'
 
 function ProtectedRoute( { element } ) {
     const navigate = useNavigate()
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated, isLoading } = useAuth()
 
     useEffect(() => {
-        if (!isAuthenticated) {
+        if (isAuthenticated === false) {
             navigate('/')
         }        
     }, [isAuthenticated, navigate])
 
-    if (!isAuthenticated) {        
+    console.log('Are you authenticated?', isAuthenticated)
+
+    if (isAuthenticated === null || isLoading) {
+        return <h1>Checking authorization...</h1>
+    }
+
+    if (isAuthenticated === false) {        
         return null
     }    
    
