@@ -45,6 +45,7 @@ function CommentForm({ onChange }) {
                     name="commentText" 
                     id="commentText" 
                     onChange={(e) => setTextField(e.target.value)}
+                    value={textField}
                 >
                 </textarea>
                 <button type="submit">Submit</button>
