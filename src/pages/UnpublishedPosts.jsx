@@ -40,7 +40,7 @@ function UnpublishedPosts() {
                 {posts.map(post => {
                     return (
                         <li key={post.id}>
-                            <Link to={`admin/posts/${post.id}`}>
+                            <Link to={`${post.id}`}>
                                 <h2>{post.title}</h2>
                             </Link>
                         </li>

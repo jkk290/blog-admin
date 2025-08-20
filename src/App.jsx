@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound'
 import LoginPage from './pages/LoginPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import UnpublishedPosts from './pages/UnpublishedPosts'
+import PostEditor from './pages/PostEditor'
 
 function App() {  
 
@@ -19,6 +20,9 @@ function App() {
               }/>
             <Route path='/admin/unpublished' element={
               <ProtectedRoute element={<UnpublishedPosts/>}/>
+            }/>
+            <Route path='/admin/unpublished/:postId' element={
+              <ProtectedRoute element={<PostEditor/>}/>
             }/>
             <Route path='/admin/posts/:postId' element={
               <ProtectedRoute element={<PostPage />} />
