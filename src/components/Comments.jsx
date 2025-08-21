@@ -6,7 +6,7 @@ function Comments({ postId }) {
     const [comments, setComments] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated, authToken } = useAuth()
     
     useEffect(() => {
         const fetchComments = async () => {
@@ -38,6 +38,22 @@ function Comments({ postId }) {
         console.log('Updated comments: ', comments)
     }
 
+    const handleDelete = async (commentId) => {
+        try {
+            await fetch(`http://localhost:3000/api/posts/${postId}/comments/${commentId}`, {
+                method: 'delete',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                }
+            })
+            alert('Comment deleted')
+            
+        } catch (error) {
+            console.error('Failed to delete comment ',error)
+        }
+    }
+
     if (isLoading) {
         return <h1>Loading comments...</h1>
     }
@@ -55,6 +71,7 @@ function Comments({ postId }) {
                         <li key={comment.id}>
                             <p>{comment.text}</p>
                             <p>{comment.commentAuthor.username}</p>
+                            <button onClick={() => handleDelete(comment.id)}>Delete</button>
                         </li>
                     )
                 })}
