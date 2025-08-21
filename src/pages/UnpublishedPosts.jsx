@@ -55,24 +55,35 @@ function UnpublishedPosts() {
 
     const handlePublish = async (postId) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/posts/${postId}/publish`, {
+            await fetch(`http://localhost:3000/api/posts/${postId}/publish`, {
                 method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify({
+                    isPublished: 'true'
+                })
+            })
+            alert('Post published')
+        } catch (error) {
+            console.error('Failed to publish post ',error)
+        }
+    }
+
+    const handleDelete = async (postId) => {
+        try {
+            await fetch(`http://localhost:3000/api/posts/${postId}`, {
+                method: 'delete',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${authToken}`
                 }
             })
-
-            const data = await response.json()
-
-            if (response.ok) {
-                alert('Post published')
-                return
-            } else {
-                console.error('Failed to publish post: ', data.message)
-            }
+            alert('Post deleted')
+            
         } catch (error) {
-            console.error('Failed to publish post ',error)
+            console.error('Failed to delete post ',error)
         }
     }
 
@@ -94,6 +105,7 @@ function UnpublishedPosts() {
                                 <h2>{post.title}</h2>
                             </Link>
                             <button onClick={() => handlePublish(post.id)}>Publish</button>
+                            <button onClick={() => handleDelete(post.id)}>Delete</button>
                         </li>
                     )                    
                 })}

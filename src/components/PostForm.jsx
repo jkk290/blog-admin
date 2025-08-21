@@ -3,7 +3,8 @@ import { useAuth } from '../contexts/AuthContext'
 
 function PostForm({ formClose }) {    
     const [titleField, setTitleField] = useState('')
-    const [textField, setTextField] = useState('')
+    const [textField, setTextField] = useState('')    
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState(null)
     const { authToken, userId } = useAuth()
 
@@ -11,6 +12,7 @@ function PostForm({ formClose }) {
         e.preventDefault()
 
         try {
+            setIsSubmitting(true)
             const response = await fetch('http://localhost:3000/api/posts', {
                 method: 'post',
                 headers: {
@@ -27,6 +29,7 @@ function PostForm({ formClose }) {
             const data = response.json()
 
             if (response.ok) {
+                setIsSubmitting(false)
                 formClose()
                 alert('Post created successfully')
             } else {
@@ -59,7 +62,7 @@ function PostForm({ formClose }) {
                 onChange={(e) => setTextField(e.target.value)}
                 ></textarea>
                 <br />
-                <button type='submit'>Submit</button><button onClick={formClose}>Cancel</button>
+                <button type='submit'>{isSubmitting ? 'Submitting...' : 'Submit'}</button><button onClick={formClose}>Cancel</button>
             </form>
         </div>
     )
